@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='pbatch',
-    version='0.1.0',
+    version='0.1.1',
     packages=find_packages(),
     install_requires=['psutil>=5.2.2','urllib3>=1.22','requests>=2.18.4','retrying>=1.3.3',
 'progressbar2>=3.34.2','slacker>=0.9.60','slack-cleaner>=0.3.0','pyshp>=1.2.12'],

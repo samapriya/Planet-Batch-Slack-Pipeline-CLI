@@ -9,6 +9,7 @@ from cli_space import space
 from os.path import expanduser
 from cli_aoiupdate import aoiupdate
 from cli_aoi2json import aoijson
+from cli_aoi2jsonb import aoijsonb
 import getpass
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
@@ -26,6 +27,13 @@ def planet_key_from_parser(args):
     planet_key_entry()
 def aoijson_from_parser(args):
     aoijson(start=args.start,end=args.end,cloud=args.cloud,inputfile=args.inputfile,geo=args.geo,loc=args.loc)
+def aoijsonb_from_parser(args):
+    aoijsonb(indir=args.indir,
+             infile=args.infile,
+             start=args.start,
+             end=args.end,
+             cloud=args.cloud,
+             outdir=args.outdir)
 
 def activate_from_parser(args):
     activate(indir=args.indir,
@@ -59,7 +67,7 @@ def slack_key_main():
         writer.writerow([password])
 def slack_main_from_parser(args):
     slack_key_main()
-    
+
 #Slack Bot Key
 def slack_key_bot():
     slackhome=expanduser("~/.config/slackkey/")
@@ -73,8 +81,8 @@ def slack_key_bot():
         writer.writerow([password])
 def slack_bot_from_parser(args):
     slack_key_bot()
-    
-#Slack Message Post        
+
+#Slack Message Post
 def botupdate(args):
     tkn=expanduser("~/.config/slackkey/slack_key.csv")
     if os.path.isfile(tkn):
@@ -149,7 +157,16 @@ def main(args=None):
     parser_aoijson.add_argument('--geo', default='./map.geojson',help='map.geojson/aoi.kml/aoi.shp/aoi.wkt file')
     parser_aoijson.add_argument('--loc', help='Location where aoi.json file is to be stored')
     parser_aoijson.set_defaults(func=aoijson_from_parser)
-    
+
+    parser_aoijsonb=subparsers.add_parser('aoijsonb',help='Tool to batch convert KML, Shapefile,WKT,GeoJSON or Landsat WRS PathRow file to AreaOfInterest.JSON file with structured query for use with Planet API 1.0')
+    parser_aoijsonb.add_argument('--indir', help='Input directory with geojson,kml,shp or wkt files',default=None)
+    parser_aoijsonb.add_argument('--start', help='Start date in YYYY-MM-DD?')
+    parser_aoijsonb.add_argument('--end', help='End date in YYYY-MM-DD?')
+    parser_aoijsonb.add_argument('--cloud', help='Maximum Cloud Cover(0-1) representing 0-100')
+    parser_aoijsonb.add_argument('--outdir', help='Output directory to save the formatted json files renamed filename_aoi.json',default=None)
+    parser_aoijsonb.add_argument('--infile', help='Input list with geojson,kml,shp or wkt files',default=None)
+    parser_aoijsonb.set_defaults(func=aoijsonb_from_parser)
+
     parser_activate = subparsers.add_parser('activate', help='Allows users to batch activate assets using a directory with json or list of json(Sends updates on Slack if slack key added)')
     parser_activate.add_argument('--indir', help='Input directory with structured json files',default=None)
     parser_activate.add_argument('--asset', help='Choose from asset type for example:"PSOrthoTile analytic"|"REOrthoTile analytic"',default=None)
@@ -181,7 +198,7 @@ def main(args=None):
     parser_metadata.add_argument('--mfile',help='Metadata filename to be exported along with Path.csv')
     parser_metadata.add_argument('--errorlog',default='./errorlog.csv',help='Errorlog to be exported along with Path.csv')
     parser_metadata.set_defaults(func=metadata_from_parser)
-    
+
     parser_pp1 = subparsers.add_parser(' ', help='-------------------------------------------')
     parser_P = subparsers.add_parser(' ', help='-----Choose from Slack Tools Below-----')
     parser_pp2 = subparsers.add_parser(' ', help='-------------------------------------------')
@@ -191,7 +208,7 @@ def main(args=None):
 
     parser_slack_key_bot = subparsers.add_parser('sbot', help='Allows you to save your Slack Bot API Token')
     parser_slack_key_bot.set_defaults(func=slack_bot_from_parser)
-    
+
     parser_botupdate = subparsers.add_parser('botupdate', help='Allows your bot to post messages on slack channel')
     parser_botupdate.add_argument('--channel', help='Slack Bot update channel',default=None)
     parser_botupdate.add_argument('--msg', help='Slack Bot update message',default=None)
@@ -216,7 +233,7 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
- 
+
 #botupdate(msg="This is a long test message")
 #botfile(msg="tired",filepath=r"C:\Users\samapriya\Desktop\Tools_Fig\access.jpg",fname="New file",cmmt="Comment at me")
 #slackdelete()
