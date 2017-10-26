@@ -13,7 +13,7 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                 print(' ')
                 print("Using Directory sort & processing "+str(filename)+' Asset type '+str(asset))
                 aoi=os.path.join(indir,filename)
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"')
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
                 item=int((str(activate).split('...')[1].split(' available')[0]))#Count number of items
                 remain=int(activate.count("active"))-1
                 err=int(activate.count("Could not"))
@@ -27,12 +27,12 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                     bar = progressbar.ProgressBar()
                     for z in bar(range(60)):
                         time.sleep(1)
-                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"')
+                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
                     remain=int(check.count("active"))-1
                 sizeinit=len(os.walk(outdir).next()[2])
                 neg=("python download.py --query "+'"'+aoi+'" '+"--download "+'"'+outdir+'" '+asset+'"')
                 print("Starting to Download assets for "+str(os.path.basename(aoi)))
-                subprocess.call(neg)
+                subprocess.call(neg,shell=True)
                 sizefinal=len(os.walk(outdir).next()[2])
                 totaldown=int(sizefinal)-int(sizeinit)
                 combined='Using '+str(os.path.basename(aoi))+' downloaded '+str(totaldown)+' '+str(asset)
@@ -44,9 +44,9 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                 sizeup.append(pathsize)
             #print(', '.join(sizeup))
         #print(', '.join(aoicount))
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n '.join(aoicount)+'"')
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'____________________________________________________________________'+'"')
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n'.join(sizeup)+'"')
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n '.join(aoicount)+'"',shell=True)
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'____________________________________________________________________'+'"',shell=True)
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n'.join(sizeup)+'"',shell=True)
 
     else:
         with open(infile) as csvFile:
@@ -60,7 +60,7 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                 asset=str(row["asset"])
                 print(' ')
                 print("Using CSV file & processing "+str(os.path.basename(aoi))+' Asset type '+str(asset))
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"')
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
                 item=int((str(activate).split('...')[1].split(' available')[0]))#Count number of items
                 remain=int(activate.count("active"))-1
                 err=int(activate.count("Could not"))
@@ -73,12 +73,12 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                     bar = progressbar.ProgressBar()
                     for z in bar(range(60)):
                         time.sleep(1)
-                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"')
+                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
                     remain=int(check.count("active"))-1
                 sizeinit=len(os.walk(outdir).next()[2])
                 neg=("python download.py --query "+'"'+aoi+'" '+"--download "+'"'+outdir+'" '+asset+'"')
                 print("Starting to Download assets for "+str(os.path.basename(aoi)))
-                subprocess.call(neg)
+                subprocess.call(neg,shell=True)
                 sizefinal=len(os.walk(outdir).next()[2])
                 totaldown=int(sizefinal)-int(sizeinit)
                 combined='Using '+str(os.path.basename(aoi))+' downloaded '+str(totaldown)+' '+str(asset)
@@ -90,6 +90,6 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                 sizeup.append(pathsize)
             #print(', '.join(sizeup))
         #print(', '.join(aoicount))
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n '.join(aoicount)+'"')
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'____________________________________________________________________'+'"')
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n'.join(sizeup)+'"')
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n '.join(aoicount)+'"',shell=True)
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'____________________________________________________________________'+'"',shell=True)
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'\n'.join(sizeup)+'"',shell=True)
