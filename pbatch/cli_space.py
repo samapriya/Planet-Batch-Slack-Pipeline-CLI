@@ -5,7 +5,7 @@ tm="Last estimated at %s" % now
 
 def space(indir=None,asset=None,infile=None):
     if infile==None:
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(tm)+'"')
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(tm)+'"',shell=True)
         for filename in os.listdir(indir):
             if filename.endswith('.json'):
                 aoi=os.path.join(indir,filename)
@@ -14,17 +14,17 @@ def space(indir=None,asset=None,infile=None):
                 
                 print("Using Directory sort & processing "+str(filename)+' Asset type '+str(asset))
                 try:
-                    sz=subprocess.check_output('python download.py --query '+'"'+aoi+'"'+' --size '+inlet)
+                    sz=subprocess.check_output('python download.py --query '+'"'+aoi+'"'+' --size '+inlet,shell=True)
                     asstsize=(sz.split("Size in GB', '")[1].split("'")[0])
                     #print(sz.split("Space in GB', '")[1].split("'")[0])
                     comb=str(os.path.basename(aoi))+':'+str(asset)+': *'+str(asstsize)+'* GB'
                     print(comb)
-                    subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(comb)+'"')
+                    subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(comb)+'"',shell=True)
                 except Exception:
                     print(' ')
     else:
         with open(infile) as csvFile:
-            subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(tm)+'"')
+            subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(tm)+'"',shell=True)
             reader = csv.DictReader(csvFile)
             for row in reader:
                 aoi=str(row["pathways"])
@@ -35,11 +35,11 @@ def space(indir=None,asset=None,infile=None):
                 inlet='"'+local+'"'+" "+asset
                 print("Using filelist & processing "+str(os.path.basename(aoi))+' Asset type '+str(asset))
                 try:
-                    sz=subprocess.check_output('python download.py --query '+'"'+aoi+'"'+' --size '+inlet)
+                    sz=subprocess.check_output('python download.py --query '+'"'+aoi+'"'+' --size '+inlet,shell=True)
                     asstsize=(sz.split("Size in GB', '")[1].split("'")[0])
                     comb=str(os.path.basename(aoi))+':'+str(asset)+': *'+str(asstsize)+'* GB'
                     print(comb)
-                    subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(comb)+'"')
+                    subprocess.call("python slack_notifier.py botupdate --msg "+'"'+str(comb)+'"',shell=True)
                 except Exception:
                     print(' ')
       
