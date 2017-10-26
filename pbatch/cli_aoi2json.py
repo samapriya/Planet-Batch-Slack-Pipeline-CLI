@@ -20,7 +20,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def aoijson(start,end,cloud,inputfile,geo,loc):
     if inputfile == 'KML':
-        subprocess.call("python kml_aoi.py --start "+'"'+start+'"'+" --end "+'"'+end+'"'+" --cloud "+'"'+cloud+'"'+" --geo "+'"'+geo+'"'+" --loc "+'"'+loc+'"')
+        subprocess.call("python kml_aoi.py --start "+'"'+start+'"'+" --end "+'"'+end+'"'+" --cloud "+'"'+cloud+'"'+" --geo "+'"'+geo+'"'+" --loc "+'"'+loc+'"',shell=True)
         print("New structured JSON has been created at "+str(os.path.join(os.path.join(os.path.splitext(loc)[0],os.path.splitext(os.path.basename(geo))[0]+"_aoi.json"))))
         os.remove(os.path.join(loc,'kmlout.geojson'))
     elif inputfile == 'GJSON':
