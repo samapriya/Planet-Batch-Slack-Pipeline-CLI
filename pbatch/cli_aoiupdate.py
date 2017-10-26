@@ -21,7 +21,7 @@ def aoiupdate(indir=None,infile=None,days=None):
                         file.write(replacement)
                     f.close()
                 print("JSON Updated: "+fsp)
-                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(fsp)+'"')
+                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(fsp)+'"',shell=True)
     else:
         with open(infile) as csvFile:
             inputfolder=indir
@@ -39,5 +39,5 @@ def aoiupdate(indir=None,infile=None,days=None):
                         file.write(replacement)
                     f.close()
                 print("JSON Updated: "+os.path.basename(infilename))
-                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(os.path.basename(infilename))+'"')
+                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(os.path.basename(infilename))+'"',shell=True)
         
