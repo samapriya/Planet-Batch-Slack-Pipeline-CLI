@@ -9,11 +9,11 @@ def activate(indir=None,asset=None,infile=None):
             if filename.endswith('.json'):
                 aoi=os.path.join(indir,filename)
                 print("Using Directory sort & processing "+str(filename)+' Asset type '+str(asset))
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset+'"')
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset+'"',shell=True)
                 item=int((str(activate).split('...')[1].split(' available')[0]))
                 comb=str(os.path.basename(aoi))+':'+str(asset)+': '+str(item)+' '
                 aoicount.append(str(comb))
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'|| '.join(aoicount)+'"')
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'|| '.join(aoicount)+'"',shell=True)
 
     else:
         with open(infile) as csvFile:
@@ -24,9 +24,9 @@ def activate(indir=None,asset=None,infile=None):
             for row in reader:
                 aoi=str(row["pathways"])
                 asset=str(row["asset"])
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset+'"')
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset+'"',shell=True)
                 print("Using CSV file & processing "+str(os.path.basename(aoi))+' Asset type '+str(asset))
                 item=int((str(activate).split('...')[1].split(' available')[0]))
                 comb=str(os.path.basename(aoi))+':'+str(asset)+': *'+str(item)+'* '
                 aoicount.append(str(comb))
-        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'|| '.join(aoicount)+'"')
+        subprocess.call("python slack_notifier.py botupdate --msg "+'"'+'|| '.join(aoicount)+'"',shell=True)
