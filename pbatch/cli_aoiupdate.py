@@ -15,13 +15,13 @@ def aoiupdate(indir=None,infile=None,days=None):
                 fsp=filename.split("_x")[0]
                 with open(infilename, 'r') as f:
                     inp=f.read()
-                    a=inp.split('"field_name": "acquired", "config": {"gte":"')[1].split('T')[0]
+                    a=inp.split('"gte": "')[1].split('T')[0]
                     replacement=inp.replace(a,str(b))
                     with open(infilename, 'w') as file:
                         file.write(replacement)
                     f.close()
                 print("JSON Updated: "+fsp)
-                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(fsp)+'"',shell=True)
+                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(fsp)+'"')
     else:
         with open(infile) as csvFile:
             inputfolder=indir
@@ -33,11 +33,12 @@ def aoiupdate(indir=None,infile=None,days=None):
                 infilename=str(row["pathways"])
                 with open(infilename, 'r') as f:
                     inp=f.read()
-                    a=inp.split('"field_name": "acquired", "config": {"gte":"')[1].split('T')[0]
+                    a=inp.split('"gte": "')[1].split('T')[0]
                     replacement=inp.replace(a,str(b))
                     with open(infilename, 'w') as file:
                         file.write(replacement)
                     f.close()
                 print("JSON Updated: "+os.path.basename(infilename))
-                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(os.path.basename(infilename))+'"',shell=True)
+                subprocess.call("python slack_notifier.py botupdate --msg "+'"'+ " JSON Updated: "+str(os.path.basename(infilename))+'"')
         
+#aoiupdate(indir=r"C:\planet_demo\persistent_json",infile=None,days="9")
