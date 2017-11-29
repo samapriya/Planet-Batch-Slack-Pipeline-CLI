@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='pbatch',
-    version='0.1.2',
+    version='0.1.3',
     package_data={'pbatch': ['aoi.json']},
     include_package_data=True,
     packages=find_packages(),
