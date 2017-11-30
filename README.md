@@ -1,66 +1,45 @@
 # Planet Batch & Slack Pipeline CLI
 
 
-![](https://cdn-images-1.medium.com/max/2000/1*BphYv7GoE1Ffkm-qdPqP3w.png)(C)
-Planet Labs(Full line up of Satellites) and Planet &amp; Slack Technologies
+![](https://cdn-images-1.medium.com/max/2000/1*BphYv7GoE1Ffkm-qdPqP3w.png)
+&copy; Planet Labs(Full line up of Satellites) and Planet &amp; Slack Technologies
 Logo
 
-For writing a readme file this time I have adapted a shared piece written for the medium article. The first part which is setting up the slack account, creating an application and a slack bot has been discussed in the [article here](medium.com).  
-In the past I have written tools which
-act as pipelines for you to process single areas of interest at the time that
-could be chained, the need to write something that does a bit more heavy
-lifting arose. This command line interface(CLI) application was created to
-handle groups and teams that have multiple areas of interest and multiple
-input and output buckets and locations to function smoothly. The best part I
-integrated this to slack so you can be on the move while this task can be on a
-scheduler and update you when finished.
+For writing a readme file this time I have adapted a shared piece written for the medium article. The first part which is setting up the slack account, creating an application and a slack bot has been discussed in the [article here](medium.com). In the past I have written tools which act as pipelines for you to process single areas of interest at the time that could be chained, the need to write something that does a bit more heavy lifting arose. This command line interface(CLI) application was created to handle groups and teams that have multiple areas of interest and multiple input and output buckets and locations to function smoothly. I have integrated this to slack so you can be on the move while this task can be on a scheduler and update you when finished.
 
-![](https://cdn-
-images-1.medium.com/max/1600/1*RZ3Qtg8qFI486zxQzO_72w.png)Planet by the
-numbers from Will Marshal's post [https://www.planet.com/pulse/mission-1/](htt
-ps://medium.com/r/?url=https%3A%2F%2Fwww.planet.com%2Fpulse%2Fmission-1%2F)
-(C) Planet Labs
+## Table of contents
+* [Installation](#installation)
+* [Getting started](#getting-started)
+    * [Batch uploader](#batch-uploader)
+    * [Parsing metadata](#parsing-metadata)
+* [Credits](#credits)
 
-**Setting up the Command Line Interface Tool**
-
-The next step we will setup the [Planet-Batch-Slack-Pipeline-
-CLI](https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fsamapriya%2FPlanet-
-Batch-Slack-Pipeline-CLI) and integrate our previously built slack app for
-notifications. To setup the prerequisites you need to install the Planet
+## Installation
+The next step we will setup the [Planet-Batch-Slack-Pipeline-CLI](https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI) and integrate our previously built slack app for notifications. To setup the prerequisites you need to install the Planet
 Python API Client and Slack Python API Clients.
+* To install the tool you can go to the GitHub page at [Planet-Batch-Slack-Pipeline-CLI](https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI). As always two of my favorite operating systems are Windows and Linux, and to install on Linux
 
-  * To install the tool you can go to the GitHub page at [Planet-Batch-Slack-Pipeline-CLI](https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fsamapriya%2FPlanet-Batch-Slack-Pipeline-CLI). As always two of my favorite operating systems are Windows and Linux, and to install on Linux  
+```
+git clone https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI.git
+cd Planet-Batch-Slack-Pipeline-CLI && sudo python setup.py install
+pip install -r requirements.txt
+```
 
+* for windows download the zip and after extraction go to the folder containing "setup.py" and open command prompt at that location and type
+```
+python setup.py install  
+pip install -r requirements.txt
+```
 
+Now call the tool for the first time, by typing in `pbatch -h`. This will only work if you have python in the system path which you can test for opening up terminal or command prompt and typing `python.`
 
+## Getting started
+Once the requirements have been satisfied the first thing we would setup would be the OAuth Keys we created. The tools consists of a bunch of slack tools as well including capability to just use this tool to send slack messages, attachments and clean up channel as needed.
 
-    git clone [https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI.git](https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fsamapriya%2FPlanet-Batch-Slack-Pipeline-CLI.git)  
-    cd Planet-Batch-Slack-Pipeline-CLI && sudo python setup.py install  
-    pip install -r requirements.txt
+![](https://cdn-images-1.medium.com/max/1600/1*b0KwseZZId5kj_FXcGO5tw.jpeg)
+Planet Batch Tools and Slack Addons Interface
 
-  * for windows download the zip and after extraction go to the folder containing "setup.py" and open command prompt at that location and type
-
-
-    python setup.py install  
-    pip install -r requirements.txt
-
-Now call the tool for the first time, by typing in `pbatch -h`. This will only
-work if you have python in the system path which you can test for opening up
-terminal or command prompt and typing `python.`
-
-Once the requirements have been satisfied the first thing we would setup would
-be to OAuth Keys we created. The tools consists of a bunch of slack tools as
-well including capability to just use this tool to send slack messages,
-attachments and clean up channel as needed.
-
-![](https://cdn-
-images-1.medium.com/max/1600/1*b0KwseZZId5kj_FXcGO5tw.jpeg)Planet Batch Tools
-and Slack Addons
-
-The two critical setup tools to make Slack ready and integrated are the smain
-and sbot tools where you will enter the OAuth for the application and OAuth
-for the bot that you generated earlier. These are then stored into your
-session for future use, you can call them using
+The two critical setup tools to make Slack ready and integrated are the smain and sbot tools where you will enter the OAuth for the application and OAuth for the bot that you generated earlier. These are then stored into your session for future use, you can call them using
 
 `pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_
 
