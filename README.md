@@ -10,8 +10,8 @@ For writing a readme file this time I have adapted a shared piece written for th
 ## Table of contents
 * [Installation](#installation)
 * [Getting started](#getting-started)
-    * [Batch uploader](#batch-uploader)
-    * [Parsing metadata](#parsing-metadata)
+* [Batch Approach to Structured JSON](#batch-approach-to-structured-json)
+* [Batch Activation](#batch-activation)
 * [Credits](#credits)
 
 ## Installation
@@ -78,20 +78,13 @@ The csv file needs to have following headers and setup
 | C:\demo\sfo.geojson    | 2017-01-01 | 2017-05-02 | 0.15  | C:\demo |
 | C:\demo\indy.geojson   | 2017-01-01 | 2017-09-02 | 0.15  | C:\demo |
 
-[](https://cdn-
-images-1.medium.com/max/1600/1*VvdjrWXP6ODwqfmYqmILUA.gif)aoijsonb to handle
-batch processing of input files to structured json
+Below is a folder based batch execution to convert multiple geojson files to structured json files
+![aoijsonb](https://i.imgur.com/u0A7mC7.gif)
 
-> **Activate!! but Batch Activate**
+## Batch Activation
+This tool was rewritten to provide users with two options to activate their assets. They can either point the tool at a folder and select the item and asset combination or they can specify a CSV file which contains each asset and item type and path to the structured JSON file. A setup would be as simple as 
 
-This tool was rewritten to provide users with two options to activate their
-assets. They can either point the tool at a folder and select the item and
-asset combination or they can specify a CSV file which contains each asset and
-item type and path to the structured JSON file. A setup would be as simple as
-
-
-
-    pbatch activate --indir "path to folder with structured json files" --asset "item asset type example: PSOrthoTile analytic"
+`pbatch activate --indir "path to folder with structured json files" --asset "item asset type example: PSOrthoTile analytic"`
 
 The csv file need to have headers
 
