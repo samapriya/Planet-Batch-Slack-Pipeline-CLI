@@ -25,12 +25,13 @@ def aoiupdate(indir=None,infile=None,days=None):
     else:
         with open(infile) as csvFile:
             inputfolder=indir
-            n=days
-            yesterday = date.today() - timedelta(int(n))
-            b=yesterday.strftime('%Y-%m-%d')
             reader = csv.DictReader(csvFile)
             for row in reader:
                 infilename=str(row["pathways"])
+                days=row["days"]
+                n=days
+                yesterday = date.today() - timedelta(int(n))
+                b=yesterday.strftime('%Y-%m-%d')
                 with open(infilename, 'r') as f:
                     inp=f.read()
                     a=inp.split('"gte": "')[1].split('T')[0]

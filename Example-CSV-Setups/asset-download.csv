@@ -1,0 +1,5 @@
+pathways,directory,asset
+C:\demo\dallas_aoi.json,C:\demo\t1,PSOrthoTile analytic
+C:\demo\denver_aoi.json,C:\demo\t1,REOrthoTile analytic
+C:\demo\sfo_aoi.json,C:\demo\t1,PSOrthoTile analytic_xml
+C:\demo\indy_aoi.json,C:\demo\t1,REOrthoTile analytic_xml

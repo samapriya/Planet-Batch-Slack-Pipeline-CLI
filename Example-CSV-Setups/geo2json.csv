@@ -1,0 +1,5 @@
+pathways,start,end,cloud,outdir
+C:\demo\dallas.geojson,2017-01-01,2017-01-02,0.15,C:\demo
+C:\demo\denver.geojson,2017-01-01,2017-03-02,0.15,C:\demo
+C:\demo\sfo.geojson,2017-01-01,2017-05-02,0.15,C:\demo
+C:\demo\indy.geojson,2017-01-01,2017-09-02,0.15,C:\demo

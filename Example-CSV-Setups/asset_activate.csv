@@ -1,0 +1,5 @@
+pathways,asset
+C:\demo\dallas_aoi.json,PSOrthoTile analytic
+C:\demo\denver_aoi.json,REOrthoTile analytic
+C:\demo\sfo_aoi.json,PSScene4Band analytic
+C:\demo\indy_aoi.json,PSScene4Band analytic_sr
