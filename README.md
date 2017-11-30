@@ -41,61 +41,42 @@ Planet Batch Tools and Slack Addons Interface
 
 The two critical setup tools to make Slack ready and integrated are the smain and sbot tools where you will enter the OAuth for the application and OAuth for the bot that you generated earlier. These are then stored into your session for future use, you can call them using
 
-`pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_
+`pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_. You can find the [tutorial here](medium.com)
 
-`pbatch sbot `_Use "_**_Bot User OAuth Access Token" _**_generated earlier_
+`pbatch sbot `_Use "_**_Bot User OAuth Access Token" _**_generated earlier_. You can find the [tutorial here](medium.com)
 
-Once this is done your bot is now setup to message you when a task is
-completed. In our case these are tied into individual tools within the batch
-toolkit we just installed.
+Once this is done your bot is now setup to message you when a task is completed. In our case these are tied into individual tools within the batch toolkit we just installed.
 
-> **One Batch to Rule Them?**
-
-To be clear these tools were designed based on what I thought was an effective
-way of looking at data, downloading them and chaining the processes together.
-They are still a set of individual tools to make sure that one operation is
-independent of the other and does not break in case of a problem. So a non-
-monolithic design in some sense to make sure the pieces work. We will go
-through each of them in the order of use
-
-`pbatch planetkey` is the obvious one which is your planet API key and will
+To be clear these tools were designed based on what I thought was an effective way of looking at data, downloading them and chaining the processes together. They are still a set of individual tools to make sure that one operation is independent of the other and does not break in case of a problem. So a non-monolithic design in some sense to make sure the pieces work. We will go
+through each of them in the order of use `pbatch planetkey` is the obvious one which is your planet API key and will
 allow you to store this locally to a session.
 
-_The _**_aoijson_**_ tool is the same tool used in the Planet-EE CLI within
-the pbatch bundle allows you to bring any existing KML, Zipped Shapefile,
-GeoJSON, WKT or even Landsat Tiles to a structured geojson file, this is so
-that the Planet API can read the structured geojson which has additional
-filters such as cloud cover and range of dates. The tool can then allow you to
-convert the geojson file to include filters to be used with the Planet Data
-API._
+_The _**_aoijson_**_ tool is the same tool used in the Planet-EE CLI within the pbatch bundle allows you to bring any existing KML, Zipped Shapefile, GeoJSON, WKT or even Landsat Tiles to a structured geojson file, this is so that the Planet API can read the structured geojson which has additional filters such as cloud cover and range of dates. The tool can then allow you to
+convert the geojson file to include filters to be used with the Planet Data API._
 
-Let us say we want to convert this [map.geojson](https://medium.com/r/?url=htt
-ps%3A%2F%2Ffilebin.ca%2F3S3EeDlgNzmj%2Fmap.geojson) to a structured aoi.json
-from _June 1 2017 to June 30th 2017 with 15% cloud cover as our maximum_. We
-would pass the following command
+Let us say we want to convert this [map.geojson]() to a structured aoi.json from _June 1 2017 to June 30th 2017 with 15% cloud cover as our maximum_. We would pass the following command
+
+```pbatch.py aoijson --start "2017-06-01" --end "2017-06-30" --cloud "0.15" --inputfile "GJSON" --geo "local path to map.geojson file" --loc "path where aoi.json output file will be created"```
 
 
 
-    pbatch.py aoijson --start "2017-06-01" --end "2017-06-30" --cloud "0.15" --inputfile "GJSON" --geo "local path to map.geojson file" --loc "path where aoi.json output file will be created"
+### Batch Approach to Structured JSON
 
-> **The Batch Approach to Structured JSON( **`**pbatch aoijsonb**`**)**
+This tool was then rewritten and included in the application to overcome two issues 1) Automatically detect the type of input file I am passing (For now it can automatically handle geojson, kml, shapefile and wkt files). The files are then saved in an output directory with the **filename_aoi.json . **
 
-This tool was then rewritten and included in the application to overcome two
-issues 1) Automatically detect the type of input file I am passing (For now it
-can automatically handle geojson, kml, shapefile and wkt files). The files are
-then saved in an output directory with the **filename_aoi.json . **
+![](https://cdn-images-1.medium.com/max/1600/1*SzqMpKk5cevcZzHVKULo3w.jpeg)
 
-![](https://cdn-images-1.medium.com/max/1600/1*SzqMpKk5cevcZzHVKULo3w.jpeg)The
-Setup of the pbatch aoijson tool
+The tool can also read from a csv file and parse different start dates, end dates and cloud cover for different files and create structured jsons to multiple locations making an multi path export easy. The csv headers should be
+The csv file needs to have following headers and setup
 
-The tool can also read from a csv file and parse different start dates, end
-dates and cloud cover for different files and create structured jsons to
-multiple locations making an multi path export easy. The csv headers should be
+| pathways               | start      | end        | cloud | outdir  |
+|------------------------|------------|------------|-------|---------|
+| C:\demo\dallas.geojson | 2017-01-01 | 2017-01-02 | 0.15  | C:\demo |
+| C:\demo\denver.geojson | 2017-01-01 | 2017-03-02 | 0.15  | C:\demo |
+| C:\demo\sfo.geojson    | 2017-01-01 | 2017-05-02 | 0.15  | C:\demo |
+| C:\demo\indy.geojson   | 2017-01-01 | 2017-09-02 | 0.15  | C:\demo |
 
-The csv file need to have headers
-
-CSV Setup for File to Structured JSON(Accepted types[GeoJSON, KML,
-WKT,SHP])![](https://cdn-
+[](https://cdn-
 images-1.medium.com/max/1600/1*VvdjrWXP6ODwqfmYqmILUA.gif)aoijsonb to handle
 batch processing of input files to structured json
 
