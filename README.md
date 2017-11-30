@@ -56,7 +56,9 @@ convert the geojson file to include filters to be used with the Planet Data API.
 
 Let us say we want to convert this [map.geojson]() to a structured aoi.json from _June 1 2017 to June 30th 2017 with 15% cloud cover as our maximum_. We would pass the following command
 
-```pbatch.py aoijson --start "2017-06-01" --end "2017-06-30" --cloud "0.15" --inputfile "GJSON" --geo "local path to map.geojson file" --loc "path where aoi.json output file will be created"```
+```
+pbatch.py aoijson --start "2017-06-01" --end "2017-06-30" --cloud "0.15" --inputfile "GJSON" --geo "local path to map.geojson file" --loc "path where aoi.json output file will be created"
+```
 
 
 
