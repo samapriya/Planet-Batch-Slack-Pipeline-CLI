@@ -88,6 +88,7 @@ This tool was rewritten to provide users with two options to activate their asse
 `pbatch activate --indir "path to folder with structured json files" --asset "item asset type example: PSOrthoTile analytic"`
 
 The csv file need to have headers
+
 | pathways                | asset                    |
 |-------------------------|--------------------------|
 | C:\demo\dallas_aoi.json | PSOrthoTile analytic     |
@@ -108,6 +109,7 @@ pbatch downloader --indir "Pathway to your json file" --asset "PSOrthoTile analy
 ```
 
 The csv file needs to have following headers and setup
+
 | pathways                | directory  | asset                    |
 |-------------------------|------------|--------------------------|
 | C:\demo\dallas_aoi.json | C:\demo\t1 | PSOrthoTile analytic     |
@@ -135,6 +137,7 @@ Two things that keep changing are space (The amount of space needed to store you
 And it can also consume a csv file where the csv file need to have headers
 
 CSV Setup to estimate size of assets in GB 
+
 | pathways                | asset                    |
 |-------------------------|--------------------------|
 | C:\demo\dallas_aoi.json | PSOrthoTile analytic     |
