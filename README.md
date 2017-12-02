@@ -12,7 +12,9 @@ For writing a readme file this time I have adapted a shared piece written for th
 * [Getting started](#getting-started)
 * [Batch Approach to Structured JSON](#batch-approach-to-structured-json)
 * [Batch Activation](#batch-activation)
-* [Credits](#credits)
+* [Batch Download and Balance](#batch-download-and-balance)
+* [Additional Tools](#additional-tools)
+* [Citation and Credits](#citation-and-credits)
 
 ## Installation
 The next step we will setup the [Planet-Batch-Slack-Pipeline-CLI](https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI) and integrate our previously built slack app for notifications. To setup the prerequisites you need to install the Planet
@@ -47,8 +49,7 @@ The two critical setup tools to make Slack ready and integrated are the smain an
 
 Once this is done your bot is now setup to message you when a task is completed. In our case these are tied into individual tools within the batch toolkit we just installed.
 
-To be clear these tools were designed based on what I thought was an effective way of looking at data, downloading them and chaining the processes together. They are still a set of individual tools to make sure that one operation is independent of the other and does not break in case of a problem. So a non-monolithic design in some sense to make sure the pieces work. We will go
-through each of them in the order of use `pbatch planetkey` is the obvious one which is your planet API key and will
+To be clear these tools were designed based on what I thought was an effective way of looking at data, downloading them and chaining the processes together. They are still a set of individual tools to make sure that one operation is independent of the other and does not break in case of a problem. So a non-monolithic design in some sense to make sure the pieces work. We will go through each of them in the order of use `pbatch planetkey` is the obvious one which is your planet API key and will
 allow you to store this locally to a session.
 
 _The _**_aoijson_**_ tool is the same tool used in the Planet-EE CLI within the pbatch bundle allows you to bring any existing KML, Zipped Shapefile, GeoJSON, WKT or even Landsat Tiles to a structured geojson file, this is so that the Planet API can read the structured geojson which has additional filters such as cloud cover and range of dates. The tool can then allow you to
@@ -87,39 +88,35 @@ This tool was rewritten to provide users with two options to activate their asse
 `pbatch activate --indir "path to folder with structured json files" --asset "item asset type example: PSOrthoTile analytic"`
 
 The csv file need to have headers
+| pathways                | asset                    |
+|-------------------------|--------------------------|
+| C:\demo\dallas_aoi.json | PSOrthoTile analytic     |
+| C:\demo\denver_aoi.json | REOrthoTile analytic     |
+| C:\demo\sfo_aoi.json    | PSScene4Band analytic    |
+| C:\demo\indy_aoi.json   | PSScene4Band analytic_sr |
 
-CSV Setup to Batch activate different structured JSON files
+![](https://cdn-images-1.medium.com/max/2000/1*fx2IXUBVWfjtIsQMmW9d9Q.gif)
 
-![](https://cdn-
-images-1.medium.com/max/2000/1*fx2IXUBVWfjtIsQMmW9d9Q.gif)Batch activation of
-all JSON(s) in folder
+The tool generates a slack readout which includes the filename , the asset and item type and the number of item and asset combinations that have been requested for activation
 
-And guess what this when our slack bot started communicating with us. The read
-out includes the filename , the asset and item type and the number of item and
-asset combinations that have been requested for activation
+## Batch Download and Balance
 
-![](https://cdn-images-1.medium.com/max/2000/1*BYZsQGz2A_Wr6LAa4t3Gfg.jpeg)The
-Slack readout for asset activation
+We run the `downloader` tool to batch download these assets and again you can choose to have either a folder or a csv file containing path to the json files, the item asset combination and the output location. A simple setup is thus
 
-> **Load Balance and Download: (Also known as go get a cup of coffee/tea)**
-
-If you have reached here means you are all ready to grab your data which might
-be activating as we try this out. So we run the `downloader` tool to batch
-download these assets and again you can choose to have either a folder or a
-csv file containing path to the json files, the item asset combination and the
-output location. A simple setup is thus
-
-
-
-    pbatch downloader --indir "Pathway to your json file" --asset "PSOrthoTile analytic" --outdir "C:\output-folder"
+```
+pbatch downloader --indir "Pathway to your json file" --asset "PSOrthoTile analytic" --outdir "C:\output-folder"
+```
 
 The csv file needs to have following headers and setup
+| pathways                | directory  | asset                    |
+|-------------------------|------------|--------------------------|
+| C:\demo\dallas_aoi.json | C:\demo\t1 | PSOrthoTile analytic     |
+| C:\demo\denver_aoi.json | C:\demo\t1 | REOrthoTile analytic     |
+| C:\demo\sfo_aoi.json    | C:\demo\t1 | PSOrthoTile analytic_xml |
+| C:\demo\indy_aoi.json   | C:\demo\t1 | REOrthoTile analytic_xml |
 
-CSV Setup to download different item and asset type directory path can be
-different for each JSON file
 
-![](https://cdn-
-images-1.medium.com/max/2000/1*s1MRFpep2taYqviO07gFYg.gif)Batch downloading
+![](https://cdn-images-1.medium.com/max/2000/1*s1MRFpep2taYqviO07gFYg.gif)Batch downloading
 using folder
 
 This tool is unique for a few reasons
@@ -127,60 +124,35 @@ This tool is unique for a few reasons
   * This can using the CSV sort to identify different pathways to strctured jsons in different locations, but it can also download different assets for each input file and write to different location each time. Meaning this can be of production value to teams who have different source folders and output buckets where they would want their data to be written.
   * The tool also prints information of Number of assets already active, number of assets that could not be activated and the total number of assets. Incase number of assets active do not match those that can be activated it will wait and show you a progressbar before trying again. This is the load balancing for each input file while making sure you don't have to estimate wait times for large requests.
 
-> **Imagine having a university tier license(**[**Investigator or
-Institutional
-License**](https://medium.com/r/?url=https%3A%2F%2Fwww.planet.com%2Fproducts
-%2Feducation-and-research%2F)**) where you manage downloads and users submit
-requests, this tool will allow you to structure these requests and maintain a
-status log. **
+The tool generates a slack message posted on your channel letting you keep track of downloads.
 
-Last but not the least we get our slack bot reporting back to us with the
-results. Watch as the number of downloaded assets in folder increases
+## Additional Tools
 
-![](https://cdn-
-images-1.medium.com/max/1600/1*enDRKU2WFDSnHIvnH7t0nQ.jpeg)Slack bot response
-post using downloader to download assets
-
-> **Space and Time: And everything in Between**
-
-Two things that keep changing are space (The amount of space needed to store
-your data) and the time since you may want to look at different time windows .
-With this in mind an easy way to update you about the total space for the
-assets you activated I created a tool called `pbatch space` . A simple setup
-would be
-
-
+Two things that keep changing are space (The amount of space needed to store your data) and the time since you may want to look at different time windows . With this in mind an easy way to update you about the total space for the assets you activated I created a tool called **`pbatch space`** . A simple setup would be
 
     pbatch space --indir "Input directory with structured json file" --asset "PSOrthoTile analytic"
 
 And it can also consume a csv file where the csv file need to have headers
 
-CSV Setup to estimate size of assets in GB ![](https://cdn-
-images-1.medium.com/max/1600/1*wOz4cSLcPrsvpaFtblockA.gif)pbatch space
-printout
+CSV Setup to estimate size of assets in GB 
+| pathways                | asset                    |
+|-------------------------|--------------------------|
+| C:\demo\dallas_aoi.json | PSOrthoTile analytic     |
+| C:\demo\denver_aoi.json | REOrthoTile analytic     |
+| C:\demo\sfo_aoi.json    | PSScene4Band analytic    |
+| C:\demo\indy_aoi.json   | PSScene4Band analytic_sr |
 
-The best part Slack will record the last time you ran this tool because new
-assets may have activated since you last ran this or new assets may have
-become available for you to activate.
+![](https://cdn-images-1.medium.com/max/1600/1*wOz4cSLcPrsvpaFtblockA.gif)
 
-![](https://cdn-
-images-1.medium.com/max/1600/1*xbxv57oCEfJEMrdyHQJO2Q.jpeg)Slack Readout for
-pbatch space
+Slack will record the last time you ran this tool because new assets may have activated since you last ran this or new assets may have
+become available for you to activate. This tool is useful only after you have activated your assets.
 
-And now comes time, most often all your data needs can be considered as x
-number of days from whatever you sent . Meaning I may want to look at 30 days
-of data from the end date and we don't want to recreate the structured json
-files. Turns out we can easily change that using a time delta function and
-simply rewrite the start date for our json files from which to start looking
+To quickly change start times on structured JSON I created another tool **``pbatch aoiupdate``**. Most often all your data needs can be considered as x number of days from whatever you sent . Meaning I may want to look at 30 days of data from the end date and we don't want to recreate the structured json files. Turns out we can easily change that using a time delta function and simply rewrite the start date for our json files from which to start looking
 for data.
 
-> Note: Your end date should be current date or later the way the date is now
-written is date greater than equal to 30 days from today and end date remains
-constant
+> Note: Your end date should be current date or later the way the date is now written is date greater than equal to 30 days from today and end date remains constant
 
-![](https://cdn-
-images-1.medium.com/max/1600/1*W1Z1HGB1f5FCA1ZbFXWgpA.jpeg)aoiupdate to 30
-days from today
+![](https://cdn-images-1.medium.com/max/1600/1*W1Z1HGB1f5FCA1ZbFXWgpA.jpeg)
 
 A good rule of them to be safe with this tool is to save the end date into the
 future so for example. The setup maybe
@@ -200,35 +172,18 @@ JSON file
 CSV Setup to update structured JSON. Note: the number of days is calculated
 from current date
 
-The slack bot is keeping track of all this and updates us too
+| pathways                | days |
+|-------------------------|------|
+| C:\demo\dallas_aoi.json | 3    |
+| C:\demo\denver_aoi.json | 5    |
+| C:\demo\sfo_aoi.json    | 14   |
+| C:\demo\indy_aoi.json   | 23   |
 
-![](https://cdn-
-images-1.medium.com/max/1600/1*RinGFxyDAfwcbGzIGfMJxA.jpeg)Slack aoiupdate
-status log
+Another tool that was solely written witht he purpose of integration with Google Earth Engine is the  **`pbatch metadata`** which allows you to tabulate metadata and this is for use in conjunction with Google Earth Engine atleast for my workflow.
 
-There you have it, you now have tools that can help you create more efficient
-pipelines , talk to a slack bot, load balance and get updates. Additional
-tools are included in the CLI such as
+## Citation and Credits
+You can cite the tool as
 
-  * `**pbatch metadata**` which allows you to tabulate metadata and this is for use in conjunction with Google Earth Engine atleast for my workflow.
+* 
 
-> **Bonus Tools and Goodies**
-
-Well it is near Christmas so why not throw in some extra goodies and bonus
-tools. So here are a few I built into the Planet-Batch-Slack-Pipeline to allow
-you to integrate and build around other tools as well as to
-
-`**pbatch botupdate**` will allow you to send any message to your channel try
-it type "`pbatch botupdate --msg "Hello world`"
-
-`**pbatch botfile**` will allow you send any attachment pictures, codes, json
-files etc so you can build new tools around it as well. To send a picture for
-example simply type "`pbatch botfile --filepath "Path to file" --fname "name
-of file`"
-
-`**pbatch slackdelete**` is if your slack channel is too cluttered with logs
-and you want to delete all of them, feel free to do so. Remember this clears
-all messages posted by your bot in that channel.
-
-If you find this tool useful and have used it to recreate something or to
-create better workflow, you can cite it as
+Thanks to the [Planet Ambassador Program](https://www.planet.com/products/education-and-research/)
