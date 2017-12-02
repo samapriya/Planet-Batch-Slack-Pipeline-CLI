@@ -15,6 +15,7 @@ For writing a readme file this time I have adapted a shared piece written for th
 * [Batch Download and Balance](#batch-download-and-balance)
 * [Additional Tools](#additional-tools)
 * [Citation and Credits](#citation-and-credits)
+* [Changelog](#changelog)
 
 ## Installation
 The next step we will setup the [Planet-Batch-Slack-Pipeline-CLI](https://github.com/samapriya/Planet-Batch-Slack-Pipeline-CLI) and integrate our previously built slack app for notifications. To setup the prerequisites you need to install the Planet
@@ -190,3 +191,14 @@ You can cite the tool as
 * 
 
 Thanks to the [Planet Ambassador Program](https://www.planet.com/products/education-and-research/)
+
+## Changelog
+### v0.1.4
+* Now handles CSV formatting for all tools
+* Added CSV Example setups folder for use
+### v0.1.3 (Pre-release)
+* Handles issues with subprocess module and long wait
+### v0.1.2 (Pre-release)
+* Updates to parsing CSV, optimized handling of filetypes
+### v0.1.1 (Pre-release)
+* Updates to Batch download handler
