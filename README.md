@@ -5,7 +5,7 @@
 &copy; Planet Labs(Full line up of Satellites) and Planet &amp; Slack Technologies
 Logo
 
-For writing a readme file this time I have adapted a shared piece written for the medium article. The first part which is setting up the slack account, creating an application and a slack bot has been discussed in the [article here](medium.com). In the past I have written tools which act as pipelines for you to process single areas of interest at the time that could be chained, the need to write something that does a bit more heavy lifting arose. This command line interface(CLI) application was created to handle groups and teams that have multiple areas of interest and multiple input and output buckets and locations to function smoothly. I have integrated this to slack so you can be on the move while this task can be on a scheduler and update you when finished.
+For writing a readme file this time I have adapted a shared piece written for the medium article. The first part which is setting up the slack account, creating an application and a slack bot has been discussed in the [article here](https://medium.com/planet-stories/talk-slack-to-me-integrating-planet-and-slack-api-for-automation-batch-notifications-b47e2236429f). In the past I have written tools which act as pipelines for you to process single areas of interest at the time that could be chained, the need to write something that does a bit more heavy lifting arose. This command line interface(CLI) application was created to handle groups and teams that have multiple areas of interest and multiple input and output buckets and locations to function smoothly. I have integrated this to slack so you can be on the move while this task can be on a scheduler and update you when finished.
 
 ## Table of contents
 * [Installation](#installation)
@@ -44,9 +44,9 @@ Planet Batch Tools and Slack Addons Interface
 
 The two critical setup tools to make Slack ready and integrated are the smain and sbot tools where you will enter the OAuth for the application and OAuth for the bot that you generated earlier. These are then stored into your session for future use, you can call them using
 
-`pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_. You can find the [tutorial here](medium.com)
+`pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_. You can find the [tutorial here](https://medium.com/planet-stories/talk-slack-to-me-integrating-planet-and-slack-api-for-automation-batch-notifications-b47e2236429f)
 
-`pbatch sbot `_Use "_**_Bot User OAuth Access Token" _**_generated earlier_. You can find the [tutorial here](medium.com)
+`pbatch sbot `_Use "_**_Bot User OAuth Access Token" _**_generated earlier_. You can find the [tutorial here](https://medium.com/planet-stories/talk-slack-to-me-integrating-planet-and-slack-api-for-automation-batch-notifications-b47e2236429f)
 
 Once this is done your bot is now setup to message you when a task is completed. In our case these are tied into individual tools within the batch toolkit we just installed.
 
@@ -188,7 +188,7 @@ Another tool that was solely written witht he purpose of integration with Google
 ## Citation and Credits
 You can cite the tool as
 
-* 
+* **Samapriya Roy. (2017, December 4). samapriya/Planet-Batch-Slack-Pipeline-CLI: Planet-Batch-Slack-Pipeline-CLI (Version 0.1.4). Zenodo. http://doi.org/10.5281/zenodo.1079887**
 
 Thanks to the [Planet Ambassador Program](https://www.planet.com/products/education-and-research/)
 
