@@ -1,5 +1,9 @@
 # Planet Batch & Slack Pipeline CLI
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1079887.svg)](https://doi.org/10.5281/zenodo.1079887)
+[![Planet](https://img.shields.io/badge/SupportedBy%3A-Planet%20Ambassador%20Program-brightgreen.svg)](https://www.planet.com/products/education-and-research/)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/samapriya)
+
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BphYv7GoE1Ffkm-qdPqP3w.png)
 &copy; Planet Labs(Full line up of Satellites) and Planet &amp; Slack Technologies
