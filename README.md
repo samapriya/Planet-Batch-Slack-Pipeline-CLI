@@ -50,9 +50,15 @@ The two critical setup tools to make Slack ready and integrated are the smain an
 
 `pbatch smain `_Use the "_**_OAuth Access Token_**_" generated earlier_. You can find the [tutorial here](https://medium.com/planet-stories/talk-slack-to-me-integrating-planet-and-slack-api-for-automation-batch-notifications-b47e2236429f)
 
+If you want more control over being able to delete slack messages you would
+want to generate a [token here](https://api.slack.com/custom-integrations/legacy-tokens) and use that as the `**pbatch smain**` token.
+
+
 `pbatch sbot `_Use "_**_Bot User OAuth Access Token" _**_generated earlier_. You can find the [tutorial here](https://medium.com/planet-stories/talk-slack-to-me-integrating-planet-and-slack-api-for-automation-batch-notifications-b47e2236429f)
 
 Once this is done your bot is now setup to message you when a task is completed. In our case these are tied into individual tools within the batch toolkit we just installed.
+
+**In case you ever forget your API keys or need it again you can access all installed applications/bots and [oauth tokens here](https://api.slack.com/apps).**
 
 To be clear these tools were designed based on what I thought was an effective way of looking at data, downloading them and chaining the processes together. They are still a set of individual tools to make sure that one operation is independent of the other and does not break in case of a problem. So a non-monolithic design in some sense to make sure the pieces work. We will go through each of them in the order of use `pbatch planetkey` is the obvious one which is your planet API key and will
 allow you to store this locally to a session.
