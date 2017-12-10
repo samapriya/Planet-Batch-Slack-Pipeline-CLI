@@ -9,7 +9,7 @@ def activate(indir=None,asset=None,infile=None):
             if filename.endswith('.json'):
                 aoi=os.path.join(indir,filename)
                 print("Using Directory sort & processing "+str(filename)+' Asset type '+str(asset))
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset+'"',shell=True)
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--activate "+asset,shell=True)
                 item=int((str(activate).split('...')[1].split(' available')[0]))
                 comb=str(os.path.basename(aoi))+':'+str(asset)+': '+str(item)+' '
                 aoicount.append(str(comb))
