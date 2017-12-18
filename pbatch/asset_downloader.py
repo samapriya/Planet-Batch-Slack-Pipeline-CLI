@@ -13,7 +13,7 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                 print(' ')
                 print("Using Directory sort & processing "+str(filename)+' Asset type '+str(asset))
                 aoi=os.path.join(indir,filename)
-                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
+                activate= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset,shell=True)
                 item=int((str(activate).split('...')[1].split(' available')[0]))#Count number of items
                 remain=int(activate.count("active"))-1
                 err=int(activate.count("Could not"))
@@ -27,10 +27,10 @@ def downloader(indir=None,outdir=None,asset=None,infile=None):
                     bar = progressbar.ProgressBar()
                     for z in bar(range(60)):
                         time.sleep(1)
-                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset+'"',shell=True)
+                    check= subprocess.check_output("python download.py --query "+'"'+aoi+'" '+"--check "+asset,shell=True)
                     remain=int(check.count("active"))-1
                 sizeinit=len(os.walk(outdir).next()[2])
-                neg=("python download.py --query "+'"'+aoi+'" '+"--download "+'"'+outdir+'" '+asset+'"')
+                neg=("python download.py --query "+'"'+aoi+'" '+"--download "+'"'+outdir+'" '+asset)
                 print("Starting to Download assets for "+str(os.path.basename(aoi)))
                 subprocess.call(neg,shell=True)
                 sizefinal=len(os.walk(outdir).next()[2])
